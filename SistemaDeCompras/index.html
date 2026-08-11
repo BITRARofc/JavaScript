@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lojinha De Games</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="cabecalho">
+            <h1>Loja de Games</h1>
+            <p>Faça seu pedido abaixo e seja feliz com a melhor loja de games da cidade.</p>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <div class="grid">
+                <div class="card">
+                    <h2>1. Cadastre seu pedido</h2>
+                    <label for="name">Digite Seu Nome Completo</label>
+                    <input type="text" name="nome" id="nome" placeholder="Nome Completo">
+                    <label for="name">Selecione o Produto</label>
+                    <select name="produto" id="produto">
+                        <option value="" disabled selected>Selecione Seu Jogo...</option>
+                    </select>
+                    <label for="qntdl">Digite a Quantidade</label>
+                    <input type="number" name="qtnd" id="qtnd" placeholder="Quantidade" min="0">
+                    <label for="tipo">Forma de Entrega</label>
+                    <label id="tipo"><input type="radio" name="modalidade" id="entrega">Entrega</label>
+                    <label id="tipo"><input type="radio" name="modalidade" id="retirada">Retirada</label>
+                    <div class="botoes">
+                        <button id="calcular" onclick="calcularValor()">Calcular Pedido</button>
+                        <button id="limpar">Limpar</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="confirmar">
+                        <h2>2. Confirmação do Pedido</h2>
+                        <div class="calculado">
+                            <div class="espaco">
+                                <p id="destacar">Nome do Cliente: </p>
+                                <span>Nome</span>
+                            </div>
+                            <hr>
+                            <div class="espaco">
+                                <p id="destacar">Produto: </p>
+                                <span>Nome</span>
+                            </div>
+                            <hr>
+                            <div class="espaco">
+                                <p id="destacar">Preço do Produto: </p>
+                                <span>Nome</span>
+                            </div>
+                            <hr>
+                            <div class="espaco">
+                                <p id="destacar">Forma de Entrega: </p>
+                                <span>Nome</span>
+                            </div>
+                            <hr>
+                            <div class="espaco">
+                                <p id="destacar">Subtotal: </p>
+                                <span>Nome</span>
+                            </div>
+                            <hr>
+                            <div class="espaco">
+                                <p id="destacar">Desconto: </p>
+                                <span>Nome</span>
+                            </div>
+                            <hr>
+                            <div class="espaco total">
+                                <p id="destacar">Total: </p>
+                                <span>Nome</span>
+                            </div>
+                            
+                        </div>
+                        <div class="botoes disabled">
+                            <button id="confirmar">Confirmar Pedido</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

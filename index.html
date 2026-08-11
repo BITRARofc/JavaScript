@@ -3,9 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Ações JavaScript</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <h1>Ações do JavaScript</h1>
+    <div class="container">
+        <div class="flex">
+            <!-- Ações de manipulação do DOM -->
+            <div class="card">
+                <h2>Interatividade</h2>
+                <p id="mensagem">Clique no botão para alterar esse texto</p>
+                <button onclick="AlterarTexto()">Alterar Texto</button>
+            </div>
+            <div class="card">
+                <h2>Validação de Fomulário</h2>
+                <label for="email">Digite seu email</label>
+                <input type="email" id="email" placeholder="abc123@email.com">
+                <p id="email-resultado"></p>
+                <button onclick="ValidarEmail()">Validar</button>
+            </div>
+            <div class="card">
+                <h2>Alterar HTML e CSS</h2>
+                <div id="caixa" class="caixa-estilo">Está caixa irá mudar de estilo com JS</div>
+                <button onclick="AlterarEstilo()" id="botao"></button>
+            </div>
+            <div class="card">
+                <h2>Animação</h2>
+                <div id="bolinha" class="bolinha inicio"></div>
+                <button onclick="AnimarBolinha()">Animar</button>
+            </div>
+            <div class="card">
+                <h2>Contador sem atualizar a página</h2>
+                <p>Cliques: <span id="contador" class="contador">0</span></p>
+                <button onclick="ContarClique()">Adicionar Clique</button>
+            </div>
+            <div class="card">
+                <h2>Comunicação com API simulada</h2>
+                <button onclick="BuscarDados()">Buscar dados</button>
+                <div id="resposta-api" class="api">Aguardando dados...</div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
