@@ -159,3 +159,9 @@ h1 {
 .cAtivado hr {
     border-color: lightgreen;
 }
+
+.cAtivado .total {
+    font-size: 18px;
+    color: rgb(57, 143, 17);
+    text-shadow: 0 0 2px rgb(0, 255, 0);
+}

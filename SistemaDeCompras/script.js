@@ -7,7 +7,7 @@ const Jogos = [
     {
         id: 2,
         game: "Dead By Daylight",
-        preco: 139.90,
+        preco: 100,
     },
     {
         id: 3,
@@ -36,19 +36,85 @@ function inserirJogos() {
     });
 }
 
-function carrinhoPadrao() {
-    console.log(document.getElementById(".cAtivado"));
-    
-    if (!document.getElementById(".cAtivado")) {
-        document.querySelector(".calculado").innerHTML = `<p id="remover">Preencha os dados e clique em <span id="destacar">Calcular Pedido</span></p>`
-    }
+function pegarProduto() {
+    const id = Number(produtos.value);
+    return Jogos.find((produtos) => produtos.id === id);
 }
 
+function formatarMoeda(valor) {
+    return valor.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    });
+} 
+
 function mostrarPreview() {
+    const produto = pegarProduto()
+    let subtotal
+    let desconto = 0
+    let total
+    const modalidade = document.querySelector('input[name="modalidade"]:checked')
+
+    Jogos.forEach(item => {
+        if (Number(produtos.value) === item.id) {
+            subtotal = item.preco * quantidade.value;
+        }
+    });
+    
+    if (subtotal >= 100) {
+        desconto = subtotal*0.10
+        total = subtotal - desconto
+    }
+
+    if (modalidade.value === "Entrega") {
+        total += 8
+    }
+
+    total = formatarMoeda(total)
+    desconto = formatarMoeda(desconto)
+    subtotal = formatarMoeda(subtotal)
+    const precop = formatarMoeda(produto.preco)
+
     if (!document.querySelector(".cAtivado")) {
-        document.getElementById("remover").remove()
         document.querySelector(".calculado").classList.add("cAtivado")
     }
+    
+    document.querySelector(".calculado").innerHTML = `<div class="espaco">
+                                <p id="destacar">Nome do Cliente: </p>
+                                <span>${nomeCliente.value}</span>
+                            </div>
+                            <hr>
+                            <div class="espaco">
+                                <p id="destacar">Produto: </p>
+                                <span>${produto.game}</span>
+                            </div>
+                            <hr>
+                            <div class="espaco">
+                                <p id="destacar">Preço do Produto: </p>
+                                <span>${precop}</span>
+                            </div>
+                            <hr>
+                            <div class="espaco">
+                                <p id="destacar">Forma de Entrega: </p>
+                                <span>${modalidade.value}</span>
+                            </div>
+                            <hr>
+                            <div class="espaco">
+                                <p id="destacar">Subtotal: </p>
+                                <span>${subtotal}</span>
+                            </div>
+                            <hr>
+                            <div class="espaco">
+                                <p id="destacar">Desconto: </p>
+                                <span>${desconto}</span>
+                            </div>
+                            <hr>
+                            <div class="espaco total">
+                                <p id="destacar">Total: </p>
+                                <span>${total}</span>
+                            </div>`
+
+    
 }
 
 function calcularValor() {
@@ -78,14 +144,8 @@ function calcularValor() {
     if (!prosseguir) {
         return
     }
-    
-    Jogos.forEach(item => {
-        if (Number(produtos.value) === item.id) {
-            const subtotal = item.preco * quantidade.value
-            mostrarPreview()
-        }
-    });
+
+    mostrarPreview()
 }
 
 inserirJogos()
-carrinhoPadrao()

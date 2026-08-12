@@ -27,8 +27,8 @@
                     <label for="qntdl">Digite a Quantidade</label>
                     <input type="number" name="qtnd" id="qtnd" placeholder="Quantidade" min="0">
                     <label for="tipo">Forma de Entrega</label>
-                    <label id="tipo"><input type="radio" name="modalidade" id="entrega">Entrega</label>
-                    <label id="tipo"><input type="radio" name="modalidade" id="retirada">Retirada</label>
+                    <label id="tipo"><input type="radio" name="modalidade" id="entrega" value="Entrega">Entrega</label>
+                    <label id="tipo"><input type="radio" name="modalidade" id="retirada" value="Retirada">Retirada</label>
                     <div class="botoes">
                         <button id="calcular" onclick="calcularValor()">Calcular Pedido</button>
                         <button id="limpar">Limpar</button>
@@ -38,41 +38,7 @@
                     <div class="confirmar">
                         <h2>2. Confirmação do Pedido</h2>
                         <div class="calculado">
-                            <div class="espaco">
-                                <p id="destacar">Nome do Cliente: </p>
-                                <span>Nome</span>
-                            </div>
-                            <hr>
-                            <div class="espaco">
-                                <p id="destacar">Produto: </p>
-                                <span>Nome</span>
-                            </div>
-                            <hr>
-                            <div class="espaco">
-                                <p id="destacar">Preço do Produto: </p>
-                                <span>Nome</span>
-                            </div>
-                            <hr>
-                            <div class="espaco">
-                                <p id="destacar">Forma de Entrega: </p>
-                                <span>Nome</span>
-                            </div>
-                            <hr>
-                            <div class="espaco">
-                                <p id="destacar">Subtotal: </p>
-                                <span>Nome</span>
-                            </div>
-                            <hr>
-                            <div class="espaco">
-                                <p id="destacar">Desconto: </p>
-                                <span>Nome</span>
-                            </div>
-                            <hr>
-                            <div class="espaco total">
-                                <p id="destacar">Total: </p>
-                                <span>Nome</span>
-                            </div>
-                            
+                            <p>Preencha os dados e clique em <span id="destacar">Calcular Pedido</span></p>
                         </div>
                         <div class="botoes disabled">
                             <button id="confirmar">Confirmar Pedido</button>
