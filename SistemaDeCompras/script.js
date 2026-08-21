@@ -7,7 +7,7 @@ const Jogos = [
     {
         id: 2,
         game: "Dead By Daylight",
-        preco: 100,
+        preco: 249.90,
     },
     {
         id: 3,
@@ -21,11 +21,15 @@ const Jogos = [
     },
 ];
 
-const nomeCliente = document.getElementById("nome")
-const produtos = document.getElementById("produto")
-const quantidade = document.getElementById("qtnd")
-const entrega = document.getElementById("entrega")
-const retirada = document.getElementById("retirada")
+const nomeCliente = document.getElementById("nome");
+const produtos = document.getElementById("produto");
+const quantidade = document.getElementById("qtnd");
+const entrega = document.getElementById("entrega");
+const retirada = document.getElementById("retirada");
+const cardCompra = document.querySelector(".calculado");
+const contadora = document.getElementById("contadora");
+const finalizado = document.querySelector(".finalizado");
+const informacoes = document.querySelector(".informacoes");
 
 function inserirJogos() {
     Jogos.forEach(jogo => {
@@ -34,6 +38,15 @@ function inserirJogos() {
         option.textContent = jogo.game
         produtos.appendChild(option)
     });
+}
+
+function limparItems() {
+    const modalidade = document.querySelector('input[name="modalidade"]:checked')
+
+    nomeCliente.value = ""
+    produtos.value = "default"
+    quantidade.value = null
+    modalidade.checked = false
 }
 
 function pegarProduto() {
@@ -48,38 +61,50 @@ function formatarMoeda(valor) {
     });
 } 
 
+let subtotal;
+let desconto = 0;
+let total = 0;
+let precop;
+
 function mostrarPreview() {
-    const produto = pegarProduto()
-    let subtotal
-    let desconto = 0
-    let total
-    const modalidade = document.querySelector('input[name="modalidade"]:checked')
+    document.querySelector(".disabled").classList.remove("disabled");
+
+    finalizado.style.opacity = "0";
+
+    const produto = pegarProduto();
+    const modalidade = document.querySelector('input[name="modalidade"]:checked');
 
     Jogos.forEach(item => {
         if (Number(produtos.value) === item.id) {
             subtotal = item.preco * quantidade.value;
-        }
+        };
     });
     
-    if (subtotal >= 100) {
+
+    if (subtotal >= 400) {
         desconto = subtotal*0.10
         total = subtotal - desconto
-    }
+    } else {
+        total = subtotal
+    };
 
     if (modalidade.value === "Entrega") {
         total += 8
-    }
+        entregaV = "Entrega + R$8,00"
+    } else {
+        entregaV = "Retirada + R$0,00"
+    };
 
-    total = formatarMoeda(total)
-    desconto = formatarMoeda(desconto)
-    subtotal = formatarMoeda(subtotal)
-    const precop = formatarMoeda(produto.preco)
+    total = formatarMoeda(total);
+    desconto = formatarMoeda(desconto);
+    subtotal = formatarMoeda(subtotal);
+    precop = formatarMoeda(produto.preco);
 
-    if (!document.querySelector(".cAtivado")) {
-        document.querySelector(".calculado").classList.add("cAtivado")
-    }
+    if (!cardCompra.classList.contains("cAtivado")) {
+        cardCompra.classList.add("cAtivado")
+    };
     
-    document.querySelector(".calculado").innerHTML = `<div class="espaco">
+    cardCompra.innerHTML = `<div class="espaco">
                                 <p id="destacar">Nome do Cliente: </p>
                                 <span>${nomeCliente.value}</span>
                             </div>
@@ -96,7 +121,7 @@ function mostrarPreview() {
                             <hr>
                             <div class="espaco">
                                 <p id="destacar">Forma de Entrega: </p>
-                                <span>${modalidade.value}</span>
+                                <span>${entregaV}</span>
                             </div>
                             <hr>
                             <div class="espaco">
@@ -112,40 +137,116 @@ function mostrarPreview() {
                             <div class="espaco total">
                                 <p id="destacar">Total: </p>
                                 <span>${total}</span>
-                            </div>`
+                            </div>`;
 
     
 }
 
-function calcularValor() {
+function testarInputs() {
 
-    let prosseguir = true
+    let prosseguir = true;
     
     if (!nomeCliente.value) {
-        console.log("Sem Nome");
+        document.querySelector(".erron").textContent = "Digite seu nome!";
         prosseguir = false
-    }
-
-    if (!produtos.value) {
-        console.log("Sem Produto");
+    };
+    
+    if (!produtos.value || produtos.value === "default") {
+        document.querySelector(".errop").textContent = "Selecione um produto!";
         prosseguir = false
-    }
+    };
     
     if (!quantidade.value) {
-        console.log("Sem Quantidade");
+        document.querySelector(".erroq").textContent = "Digite a quantidade!";
         prosseguir = false
-    }
+    };
     
     if (!entrega.checked && !retirada.checked) {
-        console.log("Sem Modalidade Selecionada");
+        document.querySelector(".errof").textContent = "Selecione a forma de entrega!";
         prosseguir = false
-    }
+    };
 
     if (!prosseguir) {
         return
-    }
+    };
 
-    mostrarPreview()
+    document.querySelector(".erro").textContent = "";
+
+    mostrarPreview();
+}
+
+function novoPedido() {
+    if (document.querySelector(".disabled")) {
+        return
+    };
+
+    if (cardCompra.classList.contains("cAtivado")) {
+        cardCompra.classList.remove("cAtivado")
+    };
+    cardCompra.innerHTML = `<p>Preencha os dados e clique em <span id="destacar">Calcular Pedido</span></p>`;
+
+    limparItems();
+
+    document.querySelector(".conf").classList.add("disabled");
+}
+
+let num = 1;
+function confirmarPedido() {
+
+    if (document.querySelector(".disabled")) {
+        return
+    };
+    
+    
+    finalizado.style.opacity = "1";
+
+    const produto = pegarProduto();
+
+    contadora.textContent = num;
+    num += 1;
+
+    informacoes.classList.add("cAtivado")
+
+    informacoes.innerHTML = `<div class="espaco">
+                                <p id="destacar">Nome do Cliente: </p>
+                                <span>${nomeCliente.value}</span>
+                            </div>
+                            <hr>
+                            <div class="espaco">
+                                <p id="destacar">Produto: </p>
+                                <span>${produto.game}</span>
+                            </div>
+                            <hr>
+                            <div class="espaco">
+                                <p id="destacar">Preço do Produto: </p>
+                                <span>${precop}</span>
+                            </div>
+                            <hr>
+                            <div class="espaco">
+                                <p id="destacar">Forma de Entrega: </p>
+                                <span>${entregaV}</span>
+                            </div>
+                            <hr>
+                            <div class="espaco">
+                                <p id="destacar">Subtotal: </p>
+                                <span>${subtotal}</span>
+                            </div>
+                            <hr>
+                            <div class="espaco">
+                                <p id="destacar">Desconto: </p>
+                                <span>${desconto}</span>
+                            </div>
+                            <hr>
+                            <div class="espaco total">
+                                <p id="destacar">Total: </p>
+                                <span>${total}</span>
+                            </div>`;
+    
+    informacoes.scrollIntoView({
+        behavior: 'smooth'
+    });
+    
+    novoPedido()
 }
 
 inserirJogos()

@@ -20,18 +20,22 @@
                     <h2>1. Cadastre seu pedido</h2>
                     <label for="name">Digite Seu Nome Completo</label>
                     <input type="text" name="nome" id="nome" placeholder="Nome Completo">
-                    <label for="name">Selecione o Produto</label>
+                    <p class="erro erron"></p>
+                    <label for="prod">Selecione o Produto</label>
                     <select name="produto" id="produto">
-                        <option value="" disabled selected>Selecione Seu Jogo...</option>
+                        <option value="default" disabled selected>Selecione Seu Jogo...</option>
                     </select>
+                    <p class="erro errop"></p>
                     <label for="qntdl">Digite a Quantidade</label>
-                    <input type="number" name="qtnd" id="qtnd" placeholder="Quantidade" min="0">
+                    <input type="number" name="qtnd" id="qtnd" placeholder="Quantidade" min="1">
+                    <p class="erro erroq"></p>
                     <label for="tipo">Forma de Entrega</label>
                     <label id="tipo"><input type="radio" name="modalidade" id="entrega" value="Entrega">Entrega</label>
-                    <label id="tipo"><input type="radio" name="modalidade" id="retirada" value="Retirada">Retirada</label>
-                    <div class="botoes">
-                        <button id="calcular" onclick="calcularValor()">Calcular Pedido</button>
-                        <button id="limpar">Limpar</button>
+                    <label id="tipo"><input type="radio" name="modalidade" id="retirada" value="Retirada">Retirada</label><br>
+                    <p class="erro errof"></p>
+                    <div class="botoes cadastro">
+                        <button id="calcular" onclick="testarInputs()">Calcular Pedido</button>
+                        <button id="limpar" onclick="limparItems()">Limpar</button>
                     </div>
                 </div>
                 <div class="card">
@@ -40,9 +44,25 @@
                         <div class="calculado">
                             <p>Preencha os dados e clique em <span id="destacar">Calcular Pedido</span></p>
                         </div>
-                        <div class="botoes disabled">
-                            <button id="confirmar">Confirmar Pedido</button>
+                        <div class="botoes conf disabled">
+                            <button id="confirmar" onclick="confirmarPedido()">Confirmar Pedido</button>
+                            <button id="novopedido" onclick="novoPedido()">Novo Pedido</button>
                         </div>
+                    </div>
+                </div>
+                <div class="cardgrande">
+                    <div class="titulocard">
+                        <h1>Pedidos Registrados</h1>
+                        <h4>Quantidade de pedidos confirmados</h4>
+                    </div>
+                    <div class="contador">
+                        <h1 id="contadora">0</h1>
+                    </div>
+                </div>
+                <div class="card finalizado">
+                    <h2>Pedido Finalizado</h2>
+                    <div class="informacoes">
+                        
                     </div>
                 </div>
             </div>
