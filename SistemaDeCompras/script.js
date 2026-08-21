@@ -69,7 +69,7 @@ let precop;
 function mostrarPreview() {
     document.querySelector(".disabled").classList.remove("disabled");
 
-    finalizado.style.opacity = "0";
+    finalizado.style.display = "none";
 
     const produto = pegarProduto();
     const modalidade = document.querySelector('input[name="modalidade"]:checked');
@@ -170,7 +170,11 @@ function testarInputs() {
         return
     };
 
-    document.querySelector(".erro").textContent = "";
+    const erros = document.querySelectorAll(".erro");
+
+    erros.forEach(mensagem => {
+        mensagem.textContent = "";
+    });
 
     mostrarPreview();
 }
@@ -180,25 +184,30 @@ function novoPedido() {
         return
     };
 
+    document.querySelector(".conf").classList.add("disabled");
+
     if (cardCompra.classList.contains("cAtivado")) {
         cardCompra.classList.remove("cAtivado")
     };
+    
     cardCompra.innerHTML = `<p>Preencha os dados e clique em <span id="destacar">Calcular Pedido</span></p>`;
 
     limparItems();
 
-    document.querySelector(".conf").classList.add("disabled");
 }
 
 let num = 1;
 function confirmarPedido() {
 
     if (document.querySelector(".disabled")) {
-        return
+        return;
+    };
+
+    if (!cardCompra.classList.contains("cAtivado")) {
+        return;
     };
     
-    
-    finalizado.style.opacity = "1";
+    finalizado.style.display = "flex";
 
     const produto = pegarProduto();
 

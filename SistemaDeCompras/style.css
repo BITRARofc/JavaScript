@@ -207,11 +207,10 @@ body {
 
 .finalizado {
     grid-column: 1/3;
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-self: center;
     width: 50%;
-    opacity: 0;
 }
 
 .erro {
